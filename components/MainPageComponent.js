@@ -111,18 +111,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         marginHorizontal: 5,
-        backgroundColor: 'black'
+        backgroundColor: 'white',
+        borderRadius: 25
     },
     buttonContainer: {
         flexDirection: 'row',
-        marginVertical: 70,
         backgroundColor: 'transparent',
+        bottom: 100,
+        
     },
     buttonText: {
         textAlign: 'center',
         fontSize: 20,
         fontWeight: "bold",
-        color: 'white'
+        color: 'black'
     }
 });
 
