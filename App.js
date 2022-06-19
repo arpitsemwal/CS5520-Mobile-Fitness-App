@@ -5,7 +5,8 @@ import MainPageComponent from './components/MainPageComponent';
 export default function App() {
   return (
     <View style={styles.container}>
-      <MainPageComponent />
+      <MainPageComponent/>
+      <StatusBar style="auto" />
     </View>
   );
 }
