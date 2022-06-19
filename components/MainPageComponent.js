@@ -26,7 +26,7 @@ const MainPageComponent = () => {
     }, []);
 
     // Also get call asynchronous function
-    async function getMoviesAsync() {
+    async function getListAsync() {
         try {
             let response = await fetch(URL);
             let json = await response.json();
@@ -48,7 +48,7 @@ const MainPageComponent = () => {
                 <View>
                     {/* Title from URL */}
                     <Text style={styles.name}>{name}</Text>
-                    {/* Display each movie */}
+                    
                     <View style={{ borderBottomWidth: 1, marginBottom: 12 }}></View>
                     <FlatList
                         data={data}
@@ -61,8 +61,6 @@ const MainPageComponent = () => {
                             </View>
                         )}
                     />
-                    {/* Show the description */}
-                    <Text style={styles.description}>{description}</Text>
                 </View>
             )}
         </SafeAreaView>
