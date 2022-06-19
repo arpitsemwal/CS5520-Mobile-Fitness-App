@@ -115,8 +115,9 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         flexDirection: 'row',
-        marginVertical: 70,
         backgroundColor: 'transparent',
+        position: 'sticky',
+        bottom: 100
     },
     buttonText: {
         textAlign: 'center',
