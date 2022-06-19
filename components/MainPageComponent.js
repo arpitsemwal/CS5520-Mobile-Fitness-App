@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, ActivityIndicator, FlatList } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ActivityIndicator, FlatList, Button, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from "react";
 
 // get data from this URL!
-const URL = "https://wger.de/api/v2/exerciseinfo/?limit=10";
+const URL = "https://wger.de/api/v2/exerciseinfo/?limit=30";
 
 const MainPageComponent = () => {
     // managing state with 'useState'
@@ -40,7 +40,7 @@ const MainPageComponent = () => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <><SafeAreaView style={styles.container}>
             {/* While fetching show the indicator, else show response*/}
             {isLoading ? (
                 <ActivityIndicator />
@@ -48,7 +48,7 @@ const MainPageComponent = () => {
                 <View>
                     {/* Title from URL */}
                     <Text style={styles.name}>{name}</Text>
-                    
+
                     <View style={{ borderBottomWidth: 1, marginBottom: 12 }}></View>
                     <FlatList
                         data={data}
@@ -56,14 +56,29 @@ const MainPageComponent = () => {
                         renderItem={({ item }) => (
                             <View style={{ paddingBottom: 10 }}>
                                 <Text style={styles.Text}>
-                                    {item.id}. {item.name}
+                                    {item.id}.{item.name}
                                 </Text>
                             </View>
-                        )}
-                    />
+                        )} />
                 </View>
             )}
         </SafeAreaView>
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                    onPress={() => this.goToCoach()}
+                    style={[styles.bubble, styles.button]}
+                >
+                    <Text style={styles.buttonText}>COACH</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity
+                    onPress={() => this.goToFilter()}
+                    style={[styles.bubble, styles.button]}
+                >
+                    <Text style={styles.buttonText}>FILTER</Text>
+                </TouchableOpacity>
+
+            </View></>
     );
 };
 
@@ -72,10 +87,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: "center",
         marginTop: 48,
+        backgroundColor: 'black'
     },
     Text: {
         fontSize: 26,
         fontWeight: "200",
+        fontWeight: "bold",
+        color: 'white'
     },
     name: {
         fontSize: 32,
@@ -87,6 +105,25 @@ const styles = StyleSheet.create({
         fontWeight: "200",
         color: "green",
     },
+    button: {
+        width: 100,
+        paddingHorizontal: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginHorizontal: 5,
+        backgroundColor: 'black'
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        marginVertical: 70,
+        backgroundColor: 'transparent',
+    },
+    buttonText: {
+        textAlign: 'center',
+        fontSize: 20,
+        fontWeight: "bold",
+        color: 'white'
+    }
 });
 
 export default MainPageComponent;
