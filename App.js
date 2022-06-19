@@ -1,11 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import MainPageComponent from './components/MainPageComponent';
+import FilterComponent from './components/FilterComponent';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <MainPageComponent/>
+      <FilterComponent/>
       <StatusBar style="auto" />
     </View>
   );
