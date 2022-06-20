@@ -1,21 +1,33 @@
 import React, { Component } from 'react';
-import { View, Alert, Button, Image, StyleSheet, Text, ImageBackground } from 'react-native';
+import { View, Alert, Button, Image, StyleSheet, Text, ImageBackground, TouchableHighlight} from 'react-native';
+
+const regex = /(<([^>]+)>)/ig;
 
 export default class ExerciseComponent extends Component {
 
+  showDescription = () => {
+    Alert.alert(
+      `Description: ${ this.props.name }`,
+      this.props.description.replace(regex, ''),
+      [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
+  }
+
   render() {
-    const regex = /(<([^>]+)>)/ig;
     return (
-      <View style={[styles.container]}>
-        <ImageBackground
-          source={this.props.image}
-          resizeMode="cover"
-          style={styles.image}>
-          <Text style={styles.name}>{ `${this.props.name}` }</Text>
-          <Text style={[styles.category]}>{ this.props.category }</Text>
-          <Text ellipsizeMode='tail' numberOfLines={5} style={styles.description}>{ this.props.description.replace(regex, '') }</Text>
-        </ImageBackground>
-      </View>
+      <TouchableHighlight onPress={this.showDescription}>
+        <View style={styles.container}>
+          <ImageBackground
+            source={this.props.image}
+            resizeMode='cover'
+            style={styles.image}>
+            <Text style={styles.name}>{ `${this.props.name}` }</Text>
+            <Text style={[styles.category]}>{ this.props.category }</Text>
+          </ImageBackground>
+        </View>
+      </TouchableHighlight>
     )
   }
 
@@ -29,6 +41,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     minHeight: 150,
     maxHeight: 150,
+    width: '100%'
 },
   name: {
     fontSize: 15,
@@ -38,7 +51,6 @@ const styles = StyleSheet.create({
   },
   category: {
     fontSize: 13,
-    fontWeight: 'medium',
     color: '#fff',
     paddingLeft: '10%',
   },
@@ -54,6 +66,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 6,
     overflow: 'hidden',
-    width: '100%',
+    width: 400
   },
 });
