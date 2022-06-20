@@ -13,6 +13,7 @@ const MainPageComponent = () => {
   const [data, setData] = useState([]);
   const [name, setTitle] = useState([]);
   const [description, setDescription] = useState([]);
+  const [selectedList, setSelectedList] = useState([]);
   const imageMapping = {
     Abs: require('../assets/Abs.jpg'),
     Arms: require('../assets/Arms.png'),
@@ -51,11 +52,47 @@ const MainPageComponent = () => {
   }
 
   const renderItem = ({ item }) => {
-    return <ExerciseComponent name={item.name} description={item.description} category={item.category.name} image={imageMapping[item.category.name]}/>
+    return (
+      <ExerciseComponent
+        name={item.name}
+        description={item.description}
+        category={item.category.name}
+        image={imageMapping[item.category.name]}
+        selectMode={selectedList.length > 0}
+        addToQueue={addToQueue}
+        removeFromQueue={removeFromQueue}
+        isSelected={selectedList.includes(item.id)}
+        id={item.id}
+      />
+    );
+  }
+
+  const addToQueue = (id) => {
+    console.log([...selectedList, id]);
+    setSelectedList([...selectedList, id]);
+  }
+
+  const removeFromQueue = (id) => {
+    console.log(selectedList.filter(exerciseId => exerciseId !== id));
+    setSelectedList(
+      selectedList.filter(exerciseId => exerciseId !== id)
+    );
+  }
+
+  const goToFilter = () => {
+    this.props.navigation.navigate('filter', {
+      filterCategories: 100,
+    });
+  }
+
+  const goToCoach = () => {
+    this.props.navigation.navigate('coach', {
+      selectedList: selectedList,
+    });
   }
 
   return (
-      <><SafeAreaView style={styles.container}>
+      <><View style={styles.container}>
           {/* While fetching show the indicator, else show response*/}
           {isLoading ? (
               <ActivityIndicator />
@@ -71,23 +108,28 @@ const MainPageComponent = () => {
                       renderItem={renderItem} />
               </View>
           )}
-      </SafeAreaView>
           <View style={styles.buttonContainer}>
-              <TouchableOpacity
-                  onPress={() => this.goToCoach()}
-                  style={[styles.bubble, styles.button]}
-              >
-                  <Text style={styles.buttonText}>COACH</Text>
-              </TouchableOpacity>
+            {
+              selectedList.length > 0 && (
+                <TouchableOpacity
+                    onPress={() => goToCoach()}
+                    style={[styles.bubble, styles.button]}
+                >
+                    <Text style={styles.buttonText}>COACH</Text>
+                </TouchableOpacity>
+              )
+            }
 
               <TouchableOpacity
-                  onPress={() => this.goToFilter()}
+                  onPress={() => goToFilter()}
                   style={[styles.bubble, styles.button]}
               >
                   <Text style={styles.buttonText}>FILTER</Text>
               </TouchableOpacity>
 
-          </View></>
+          </View>
+      </View>
+    </>
   );
 };
 

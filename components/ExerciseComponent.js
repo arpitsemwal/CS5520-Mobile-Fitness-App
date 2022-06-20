@@ -4,8 +4,15 @@ import { View, Alert, Button, Image, StyleSheet, Text, ImageBackground, Touchabl
 const regex = /(<([^>]+)>)/ig;
 
 export default class ExerciseComponent extends Component {
+  constructor(props) {
+    super(props);
+  }
 
   showDescription = () => {
+    if (this.props.selectMode) {
+      this.selectOrDeselect();
+      return;
+    }
     Alert.alert(
       `Description: ${ this.props.name }`,
       this.props.description.replace(regex, ''),
@@ -15,10 +22,27 @@ export default class ExerciseComponent extends Component {
     );
   }
 
+  selectOrDeselect = () => {
+    const isSelected = this.props.isSelected;
+    if (isSelected) {
+      this.props.removeFromQueue(this.props.id);
+    } else {
+      this.props.addToQueue(this.props.id);
+    }
+  }
+
+  getOpacity = () => {
+    if (this.props.selectMode) {
+      return this.props.isSelected ? 1 : 0.5;
+    } else {
+      return 1;
+    }
+  }
+
   render() {
     return (
-      <TouchableHighlight onPress={this.showDescription}>
-        <View style={styles.container}>
+      <TouchableHighlight onPress={this.showDescription} onLongPress={this.selectOrDeselect}>
+        <View style={[styles.container, { opacity: this.getOpacity() }]}>
           <ImageBackground
             source={this.props.image}
             resizeMode='cover'

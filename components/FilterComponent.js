@@ -210,8 +210,6 @@ const styles = StyleSheet.create({
         color: "white",
         textAlign: "left",
         width: 140
-        // marginRight: 80,
-        // marginLeft: 80,
     },
     image: {
         flex: 1,
