@@ -4,15 +4,16 @@ import { View, Alert, Button, Image, StyleSheet, Text, ImageBackground } from 'r
 export default class ExerciseComponent extends Component {
 
   render() {
+    const regex = /(<([^>]+)>)/ig;
     return (
       <View style={[styles.container]}>
         <ImageBackground
-          source={require('./assets/Abs.jpg')}
+          source={this.props.image}
           resizeMode="cover"
           style={styles.image}>
           <Text style={styles.name}>{ `${this.props.name}` }</Text>
           <Text style={[styles.category]}>{ this.props.category }</Text>
-          <Text style={styles.description}>{ this.props.description }</Text>
+          <Text ellipsizeMode='tail' numberOfLines={5} style={styles.description}>{ this.props.description.replace(regex, '') }</Text>
         </ImageBackground>
       </View>
     )
@@ -26,8 +27,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    minHeight: 150,
     maxHeight: 150,
-  },
+},
   name: {
     fontSize: 15,
     fontWeight: 'bold',
@@ -35,7 +37,7 @@ const styles = StyleSheet.create({
     paddingLeft: '10%',
   },
   category: {
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: 'medium',
     color: '#fff',
     paddingLeft: '10%',
@@ -51,6 +53,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     borderRadius: 6,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    width: '100%',
   },
 });
