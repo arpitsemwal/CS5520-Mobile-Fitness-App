@@ -3,7 +3,7 @@ import { View, Text, Switch, StyleSheet, ImageBackground } from 'react-native'
 
 const image = { uri: "https://mfiles.alphacoders.com/683/thumb-1920-683110.jpg" };
 
-export default class ChangeImageComponent extends Component {
+export default class FilterComponent extends Component {
 
     constructor(props) {
         super(props)
