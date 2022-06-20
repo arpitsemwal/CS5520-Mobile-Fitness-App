@@ -125,7 +125,6 @@ const styles = StyleSheet.create({
     buttonContainer: {
         flexDirection: 'row',
         backgroundColor: 'transparent',
-        position: 'sticky',
         bottom: 100
     },
     buttonText: {
