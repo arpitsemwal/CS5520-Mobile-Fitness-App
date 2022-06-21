@@ -4,15 +4,15 @@ import { View, Text, Switch, StyleSheet, ImageBackground, TouchableOpacity, Devi
 const image = { uri: 'https://mfiles.alphacoders.com/683/thumb-1920-683110.jpg' };
 
 const allCategories = [
-  'Abs', 'Arms', 'Chest', 'Back', 'Shoulder', 'Legs'
+  'Abs', 'Arms', 'Chest', 'Back', 'Shoulders', 'Legs'
 ];
 
 const medicalInjuries = {
   WristInjury: ['Abs', 'Back', 'Legs'],
   ElbowInjury: ['Back', 'Legs'],
   ShoulderInjury: ['Abs', 'Back', 'Chest', 'Legs'],
-  LowerBackInjury: ['Arms', 'Chest', 'Legs', 'Shoulder'],
-  KneeInjury: ['Abs', 'Arms', 'Back', 'Chest', 'Shoulder'],
+  LowerBackInjury: ['Arms', 'Chest', 'Legs', 'Shoulders'],
+  KneeInjury: ['Abs', 'Arms', 'Back', 'Chest', 'Shoulders'],
 }
 export default class FilterComponent extends Component {
 
@@ -24,7 +24,7 @@ export default class FilterComponent extends Component {
       Arms: categoriesToFilter.includes('Arms'),
       Chest: categoriesToFilter.includes('Chest'),
       Back: categoriesToFilter.includes('Back'),
-      Shoulder: categoriesToFilter.includes('Shoulder'),
+      Shoulders: categoriesToFilter.includes('Shoulders'),
       Legs: categoriesToFilter.includes('Legs'),
       WristInjury: categoriesToFilter.includes('WristInjury'),
       ElbowInjury: categoriesToFilter.includes('ElbowInjury'),
@@ -104,8 +104,8 @@ export default class FilterComponent extends Component {
                       trackColor={{ false: '#999999', true: '#40FF00' }}
                       ios_backgroundColor = '#999999'
                       style={styles.switch}
-                      value = { this.state.Shoulder }
-                      onValueChange = {() => this.addCategoryToFilters('Shoulder')}
+                      value = { this.state.Shoulders }
+                      onValueChange = {() => this.addCategoryToFilters('Shoulders')}
                   />
               </View>
               <View style={styles.switchButton}>
