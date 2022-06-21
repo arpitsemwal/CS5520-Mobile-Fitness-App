@@ -1,19 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, ActivityIndicator, FlatList, Button, TouchableOpacity } from 'react-native';
-import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, SafeAreaView, ActivityIndicator, FlatList, Button, TouchableOpacity, DeviceEventEmitter } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import ExerciseComponent from './ExerciseComponent';
 
 
 // get data from this URL!
-const URL = "https://wger.de/api/v2/exerciseinfo/?limit=30";
+const URL = 'https://wger.de/api/v2/exerciseinfo/?limit=30';
 
-const MainPageComponent = () => {
+const MainPageComponent = (props) => {
   // managing state with 'useState'
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
   const [name, setTitle] = useState([]);
   const [description, setDescription] = useState([]);
   const [selectedList, setSelectedList] = useState([]);
+  const [categoriesToFilter, setCategoriesToFilter] = useState([]);
   const imageMapping = {
     Abs: require('../assets/Abs.jpg'),
     Arms: require('../assets/Arms.png'),
@@ -26,15 +27,15 @@ const MainPageComponent = () => {
 
   // similar to 'componentDidMount', gets called once
   useEffect(() => {
-      fetch(URL)
-          .then((response) => response.json()) // get response, convert to json
-          .then((json) => {
-              setData(json.results.filter(item => item.language.short_name === 'en'));
-              setTitle(json.name);
-              setDescription(json.description);
-          })
-          .catch((error) => alert(error)) // display errors
-          .finally(() => setLoading(false)); // change loading state
+    fetch(URL)
+      .then((response) => response.json()) // get response, convert to json
+      .then((json) => {
+          setData(json.results.filter(item => item.language.short_name === 'en'));
+          setTitle(json.name);
+          setDescription(json.description);
+      })
+      .catch((error) => alert(error)) // display errors
+      .finally(() => setLoading(false)); // change loading state
   }, []);
 
   // Also get call asynchronous function
@@ -53,6 +54,19 @@ const MainPageComponent = () => {
 
   const renderItem = ({ item }) => {
     return (
+      categoriesToFilter.length > 0 ?
+      categoriesToFilter.includes(item.category.name) &&
+      <ExerciseComponent
+        name={item.name}
+        description={item.description}
+        category={item.category.name}
+        image={imageMapping[item.category.name]}
+        selectMode={selectedList.length > 0}
+        addToQueue={addToQueue}
+        removeFromQueue={removeFromQueue}
+        isSelected={selectedList.includes(item.id)}
+        id={item.id}
+      /> :
       <ExerciseComponent
         name={item.name}
         description={item.description}
@@ -79,14 +93,23 @@ const MainPageComponent = () => {
     );
   }
 
+  const filterCategories = (categories) => {
+    setCategoriesToFilter(categories);
+  }
+
   const goToFilter = () => {
-    this.props.navigation.navigate('filter', {
-      filterCategories: 100,
+    props.navigation.navigate('filter', {
+      categoriesToFilter: categoriesToFilter,
     });
   }
 
+  DeviceEventEmitter.addListener(
+    'filterAppliedEvent',
+    (categories) => filterCategories(categories)
+  );
+
   const goToCoach = () => {
-    this.props.navigation.navigate('coach', {
+    props.navigation.navigate('coach', {
       selectedList: selectedList,
     });
   }
