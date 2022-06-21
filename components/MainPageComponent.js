@@ -64,8 +64,7 @@ const MainPageComponent = (props) => {
         selectMode={selectedList.length > 0}
         addToQueue={addToQueue}
         removeFromQueue={removeFromQueue}
-        isSelected={selectedList.includes(item.id)}
-        id={item.id}
+        isSelected={selectedList.includes(item.name)}
       /> :
       <ExerciseComponent
         name={item.name}
@@ -75,21 +74,20 @@ const MainPageComponent = (props) => {
         selectMode={selectedList.length > 0}
         addToQueue={addToQueue}
         removeFromQueue={removeFromQueue}
-        isSelected={selectedList.includes(item.id)}
-        id={item.id}
+        isSelected={selectedList.includes(item.name)}
       />
     );
   }
 
-  const addToQueue = (id) => {
-    console.log([...selectedList, id]);
-    setSelectedList([...selectedList, id]);
+  const addToQueue = (name) => {
+    console.log([...selectedList, name]);
+    setSelectedList([...selectedList, name]);
   }
 
-  const removeFromQueue = (id) => {
-    console.log(selectedList.filter(exerciseId => exerciseId !== id));
+  const removeFromQueue = (name) => {
+    console.log(selectedList.filter(exerciseName => exerciseName !== name));
     setSelectedList(
-      selectedList.filter(exerciseId => exerciseId !== id)
+      selectedList.filter(exerciseName => exerciseName !== name)
     );
   }
 
@@ -110,7 +108,7 @@ const MainPageComponent = (props) => {
 
   const goToCoach = () => {
     props.navigation.navigate('coach', {
-      selectedList: selectedList,
+      selectedList: selectedList
     });
   }
 

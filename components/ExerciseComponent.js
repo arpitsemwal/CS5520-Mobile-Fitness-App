@@ -25,9 +25,9 @@ export default class ExerciseComponent extends Component {
   selectOrDeselect = () => {
     const isSelected = this.props.isSelected;
     if (isSelected) {
-      this.props.removeFromQueue(this.props.id);
+      this.props.removeFromQueue(this.props.name);
     } else {
-      this.props.addToQueue(this.props.id);
+      this.props.addToQueue(this.props.name);
     }
   }
 
