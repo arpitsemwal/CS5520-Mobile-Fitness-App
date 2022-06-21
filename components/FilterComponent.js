@@ -4,15 +4,15 @@ import { View, Text, Switch, StyleSheet, ImageBackground, TouchableOpacity, Devi
 const image = { uri: 'https://mfiles.alphacoders.com/683/thumb-1920-683110.jpg' };
 
 const allCategories = [
-  'Abs', 'Arms', 'Chest', 'Back', 'Shoulder', 'Legs', 'Wrist Injury', 'Elbow Injury', 'Shoulder Injury', 'Lower Back Injury', 'Knee Injury'
+  'Abs', 'Arms', 'Chest', 'Back', 'Shoulder', 'Legs'
 ];
 
 const medicalInjuries = {
-  'Wrist Injury': [],
-  'Elbow Injury': [],
-  'Shoulder Injury': [],
-  'Lower Back Injury': [],
-  'Knee Injury': [],
+  WristInjury: ['Abs', 'Back', 'Legs'],
+  ElbowInjury: ['Back', 'Legs'],
+  ShoulderInjury: ['Abs', 'Back', 'Chest', 'Legs'],
+  LowerBackInjury: ['Arms', 'Chest', 'Legs', 'Shoulder'],
+  KneeInjury: ['Abs', 'Arms', 'Back', 'Chest', 'Shoulder'],
 }
 export default class FilterComponent extends Component {
 
@@ -36,6 +36,13 @@ export default class FilterComponent extends Component {
 
   addCategoryToFilters = (category) => {
     this.setState({ [category]: !this.state[category] });
+  }
+
+  addMedicalInjuryToFilters = (injury) => {
+    medicalInjuries[injury].forEach(category => {
+      this.setState({ [category]: !this.state[injury] });
+    });
+    this.addCategoryToFilters(injury);
   }
 
   applyAndGoToMain = () => {
@@ -119,7 +126,7 @@ export default class FilterComponent extends Component {
                       ios_backgroundColor = '#999999'
                       style={styles.switch}
                       value = { this.state.WristInjury }
-                      onValueChange = {() => this.addCategoryToFilters('WristInjury')}
+                      onValueChange = {() => this.addMedicalInjuryToFilters('WristInjury')}
                   />
               </View>
               <View style={styles.switchButton}>
@@ -129,7 +136,7 @@ export default class FilterComponent extends Component {
                       ios_backgroundColor = '#999999'
                       style={styles.switch}
                       value = { this.state.ElbowInjury }
-                      onValueChange = {() => this.addCategoryToFilters('ElbowInjury')}
+                      onValueChange = {() => this.addMedicalInjuryToFilters('ElbowInjury')}
                   />
               </View>
               <View style={styles.switchButton}>
@@ -139,7 +146,7 @@ export default class FilterComponent extends Component {
                       ios_backgroundColor = '#999999'
                       style={styles.switch}
                       value = { this.state.ShoulderInjury }
-                      onValueChange = {() => this.addCategoryToFilters('ShoulderInjury')}
+                      onValueChange = {() => this.addMedicalInjuryToFilters('ShoulderInjury')}
                   />
               </View>
               <View style={styles.switchButton}>
@@ -149,7 +156,7 @@ export default class FilterComponent extends Component {
                       ios_backgroundColor = '#999999'
                       style={styles.switch}
                       value = { this.state.LowerBackInjury }
-                      onValueChange = {() => this.addCategoryToFilters('LowerBackInjury')}
+                      onValueChange = {() => this.addMedicalInjuryToFilters('LowerBackInjury')}
                   />
               </View>
               <View style={styles.switchButton}>
@@ -159,7 +166,7 @@ export default class FilterComponent extends Component {
                       ios_backgroundColor = '#999999'
                       style={styles.switch}
                       value = { this.state.KneeInjury }
-                      onValueChange = {() => this.addCategoryToFilters('KneeInjury')}
+                      onValueChange = {() => this.addMedicalInjuryToFilters('KneeInjury')}
                   />
               </View>
           </ImageBackground>
