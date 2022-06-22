@@ -32,8 +32,10 @@ const styles = StyleSheet.create({
     height: 60,
     paddingHorizontal: 15,
   },
-  resultItemText: { color: "white" },
+  resultItemText: { 
+    color: "white",
+    fontSize: 30,
+   },
 });
 
-// https://reactjs.org/docs/react-api.html#reactmemo
 export default React.memo(TimerSetResult);

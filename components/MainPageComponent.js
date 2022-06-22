@@ -17,7 +17,7 @@ const MainPageComponent = (props) => {
   const [categoriesToFilter, setCategoriesToFilter] = useState([]);
   const imageMapping = {
     Abs: require('../assets/Abs.jpg'),
-    Arms: require('../assets/Arms.png'),
+    Arms: require('../assets/Arms.jpg'),
     Back: require('../assets/Back.jpg'),
     Calves: require('../assets/Calves.jpg'),
     Chest: require('../assets/Chest.jpg'),

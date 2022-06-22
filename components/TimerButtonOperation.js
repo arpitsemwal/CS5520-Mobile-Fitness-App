@@ -14,7 +14,7 @@ function TimerButtonOperation({ isRunning, handleLeftButtonPress, handleRightBut
                 onPress={handleLeftButtonPress}
             >
                 <View style={styles.controlButton}>
-                    <Text style={{ color: "white" }}>
+                    <Text style={{ color: "white", fontSize: 30 }}>
                         {isRunning ? "SET COUNT" : "RESET"}
                     </Text>
                 </View>
@@ -28,7 +28,7 @@ function TimerButtonOperation({ isRunning, handleLeftButtonPress, handleRightBut
                 onPress={handleRightButtonPress}
             >
                 <View style={styles.controlButton}>
-                    <Text style={{ color: "white" }}>
+                    <Text style={{ color: "white", fontSize: 30 }} >
                         {isRunning ? "STOP" : "START"}
                     </Text>
                 </View>

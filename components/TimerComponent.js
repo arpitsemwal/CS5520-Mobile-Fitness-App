@@ -13,59 +13,59 @@ export default function TimerComponent(props) {
   const [index, setIndex] = useState(0);
 
   const handleLeftButtonPress = useCallback(() => {
-      if (isRunning) {
-          setResults((previousResults) => [time, ...previousResults]);
-      } else {
-          setResults([]);
-          setTime(0);
-      }
+    if (isRunning) {
+      setResults((previousResults) => [time, ...previousResults]);
+    } else {
+      setResults([]);
+      setTime(0);
+    }
   }, [isRunning, time]);
 
   const handleRightButtonPress = useCallback(() => {
-      if (!isRunning) {
-          const interval = setInterval(() => {
-              setTime((previousTime) => previousTime + 1);
-          }, 10);
+    if (!isRunning) {
+      const interval = setInterval(() => {
+        setTime((previousTime) => previousTime + 1);
+      }, 10);
 
-          timer.current = interval;
-      } else {
-          clearInterval(timer.current);
-      }
+      timer.current = interval;
+    } else {
+      clearInterval(timer.current);
+    }
 
-      setRunning((previousState) => !previousState);
+    setRunning((previousState) => !previousState);
   }, [isRunning]);
 
   return (
-      <SafeAreaView style={styles.container}>
-          <StatusBar style='light' />
+    <SafeAreaView style={styles.container}>
+      <StatusBar style='light' />
 
-          <View style={styles.display}>
-              <Text style={styles.currentWorkout}>current workout</Text>
-              <Text style={styles.workoutName}>{ props.route.params.selectedList[index] }</Text>
-              <Text style={styles.timeText}>{displayTime(time)}</Text>
-          </View>
+      <View style={styles.display}>
+        <Text style={styles.currentWorkout}>Current workout</Text>
+        <Text style={styles.workoutName}>{props.route.params.selectedList[index]}</Text>
+        <Text style={styles.timeText}>{displayTime(time)}</Text>
+      </View>
 
-          <Text style={styles.recommendedSet}>recommended sets (3)</Text>
-          <View style={styles.control}>
-              <TimerButtonOperation
-                  isRunning={isRunning}
-                  handleLeftButtonPress={handleLeftButtonPress}
-                  handleRightButtonPress={handleRightButtonPress}
-              />
-          </View>
+      <Text style={styles.recommendedSet}>Recommended sets (3)</Text>
+      <View style={styles.control}>
+        <TimerButtonOperation
+          isRunning={isRunning}
+          handleLeftButtonPress={handleLeftButtonPress}
+          handleRightButtonPress={handleRightButtonPress}
+        />
+      </View>
 
-          <View style={styles.result}>
-              <TimerSetResult results={results} />
-          </View>
-          {
-            index + 1 <= props.route.params.selectedList.length - 1 &&
-            <Text onPress={ () => { setIndex(index + 1); setResults([]); } } style={styles.nextWorkout}>{ `Next up > ${ props.route.params.selectedList[index + 1]}`} </Text>
-          }
-          {
-            index === props.route.params.selectedList.length - 1 &&
-            <Text onPress={ () => props.navigation.goBack() } style={styles.nextWorkout}>{ `Exit Coach`} </Text>
-          }
-      </SafeAreaView>
+      <View style={styles.result}>
+        <TimerSetResult results={results} />
+      </View>
+      {
+        index + 1 <= props.route.params.selectedList.length - 1 &&
+        <Text onPress={() => { setIndex(index + 1); setResults([]); }} style={styles.nextWorkout}>{`Next up -> ${props.route.params.selectedList[index + 1]}`} </Text>
+      }
+      {
+        index === props.route.params.selectedList.length - 1 &&
+        <Text onPress={() => props.navigation.goBack()} style={styles.nextWorkout}>{`Exit Coach`} </Text>
+      }
+    </SafeAreaView>
   );
 }
 
@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     fontWeight: '200',
     textAlign: 'center',
     fontStyle: 'italic',
+    fontWeight: 'bold'
   },
   nextWorkout: {
     color: '#fff',

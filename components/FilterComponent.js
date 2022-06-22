@@ -175,14 +175,14 @@ export default class FilterComponent extends Component {
                         onPress={() => this.props.navigation.goBack()}
                         style={[styles.bubble, styles.button]}
               >
-                <Text style={styles.buttonText}>Cancel</Text>
+                <Text style={styles.buttonText}>CANCEL</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
                   onPress={() => this.applyAndGoToMain()}
                   style={[styles.bubble, styles.button]}
               >
-              <Text style={styles.buttonText}>Apply</Text>
+              <Text style={styles.buttonText}>APPLY</Text>
               </TouchableOpacity>
           </View>
         </View>
